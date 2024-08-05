@@ -1,24 +1,24 @@
 export interface IModalConfig {
   type: string | null;
-  data: ICustomer | null;
+  data: IDataType | null;
 }
 
 export interface IDataType {
-  key: number;
+  id: string;
   full_name: string;
-  birthday: string;
+  birthday: string | null;
   phone: string;
   email: string;
   judge: [];
-  gender: string;
-  other_phone: string;
-  other_email: string;
+  gender: string | null;
+  other_phone: string | null;
+  other_email: string | null;
   status: string;
   assign_to: string;
   company_name: string;
-  career: string;
-  department: string;
-  total_employee: number;
+  career: string | null;
+  department: string | null;
+  total_employee: number | null;
   country: string;
   city: string;
   district: string;

@@ -18,7 +18,7 @@ export const getCustomers = async () => {
     }
 };
 
-export const createCustomer = async (data: IDataType) => {
+export const createCustomer = async (data: any) => {
     try {
         const response = await axiosInstance.post("/customers", data);
         return response.data;
@@ -27,3 +27,20 @@ export const createCustomer = async (data: IDataType) => {
     }
 };
 
+export const updateCustomer = async (id: string, data: any) => {
+    try {
+        const response = await axiosInstance.put(`/customers/${id}`, data);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const deleteCustomer = async (id: string) => {
+    try {
+        const response = await axiosInstance.delete(`/customers/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+};

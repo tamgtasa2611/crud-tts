@@ -2,12 +2,11 @@ import React, {useCallback, useEffect, useState} from "react";
 import {Button, Col, Modal, Row, Space, Table, Tag} from "antd";
 import type {TableProps} from "antd";
 import {Typography} from "antd";
-import {IModalConfig, ICustomer, IDataType} from "./interface";
-import ModalForCreateAndUpdate from "@/components/customer/ModalForCreateAndUpdate";
-import styles from "./Customer.module.css";
+import {IModalConfig, IDataType} from "./interface";
+import CustomerModal from "@/components/customer/CustomerModal";
+import {deleteCustomer, getCustomers} from "@/app/customer/api";
 import {ExclamationCircleFilled} from "@ant-design/icons";
 import {notification} from "antd/lib";
-import {getCustomers} from "@/app/customer/api";
 
 const {Title} = Typography;
 
@@ -24,7 +23,7 @@ export default function Crud() {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<[]>([]);
 
-    const openModal = (type: string, data?: ICustomer) => {
+    const openModal = (type: string, data?: IDataType) => {
         setModalConfig({
             type: type,
             data: data || null,
@@ -37,6 +36,37 @@ export default function Crud() {
             data: null,
         });
     };
+
+    const handleDelete = (id: string) => {
+        Modal.confirm({
+            title: 'Xác nhận xóa',
+            icon: <ExclamationCircleFilled/>,
+            content: 'Bạn có chắc muốn xóa khách hàng này?',
+            cancelText: "Đóng",
+            okText: "Xác nhận",
+            okType: "danger",
+            maskClosable: true,
+            onOk() {
+                try {
+                    deleteCustomer(id).then(() => {
+                        handleReload();
+                        notification.success({
+                            message: 'Xóa thành công!',
+                        })
+                    })
+                } catch (e) {
+                    console.log(e)
+                }
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+    };
+
+    const handleReload = () => {
+        handleRequest();
+    }
 
     const handleRequest = useCallback(() => {
         setLoading(true);
@@ -52,35 +82,15 @@ export default function Crud() {
             });
     }, [setLoading, setData]);
 
-    const handleDelete = () => {
-        Modal.confirm({
-            title: 'Xác nhận xóa',
-            icon: <ExclamationCircleFilled/>,
-            content: 'Bạn có chắc muốn xóa khách hàng này?',
-            cancelText: "Đóng",
-            okText: "Xác nhận",
-            okType: "danger",
-            maskClosable: true,
-            onOk() {
-                notification.success({
-                    message: 'Xóa thành công!',
-                })
-            },
-            onCancel() {
-                console.log('Cancel');
-            },
-        });
-    };
-
     useEffect(() => {
         handleRequest();
     }, [handleRequest]);
 
     const columns: TableProps<IDataType>["columns"] = [
         {
-            title: "STT",
-            dataIndex: "key",
-            key: "key",
+            title: "ID",
+            dataIndex: "id",
+            key: "id",
         },
         {
             title: "Họ và tên",
@@ -104,11 +114,14 @@ export default function Crud() {
             render: (_, {judge}) => (
                 <>
                     {judge.map((item) => {
-                        return (
-                            <Tag color="red" key={item}>
-                                {item.label.toUpperCase()}
-                            </Tag>
-                        );
+                        switch (item) {
+                            case "handsome":
+                                return (<Tag color="red" key={item}>Đẹp trai</Tag>);
+                            case "ugly":
+                                return (<Tag color="red" key={item}>Xấu</Tag>);
+                            case "idiot":
+                                return (<Tag color="red" key={item}>Đần</Tag>);
+                        }
                     })}
                 </>
             ),
@@ -123,7 +136,18 @@ export default function Crud() {
             title: "Người phụ trách khách hàng",
             key: "assign_to",
             dataIndex: "assign_to",
-            render: (_, {assign_to}) => assign_to.label,
+            render: (_, {assign_to}) => {
+                switch (assign_to) {
+                    case "123123123":
+                        return "Đạt 09";
+                    case "351421419":
+                        return "Cường Đzai 1102";
+                    case "351421416":
+                        return "ThangDT";
+                    case "351421412":
+                        return "Trung Dai Ca"
+                }
+            },
         },
         {
             title: "Tên công ty",
@@ -177,13 +201,14 @@ export default function Crud() {
             title: "Thao tác",
             key: "action",
             align: "center",
-            render: () => (
+            render: (record) => (
                 <Space size="middle">
-                    <Button>Chi tiết</Button>
-                    <Button type="primary">Sửa</Button>
-                    <Button type="primary" danger onClick={handleDelete}>
-                        Xóa
-                    </Button>
+                    <Button type="primary" onClick={() => {
+                        openModal(ModalType.UPDATE, record);
+                    }}>Sửa</Button>
+                    <Button type="primary" danger onClick={() => {
+                        handleDelete(record.id);
+                    }}>Xóa</Button>
                 </Space>
             ),
         },
@@ -207,14 +232,15 @@ export default function Crud() {
                     </Button>
                 </Col>
             </Row>
-            <Table columns={columns} dataSource={data} rowKey={record => record.key} loading={loading}
-            />
+            <Table columns={columns} dataSource={data} rowKey={record => record?.id} loading={loading}
+                   pagination={{pageSize: 5}}/>
             {modalConfig.type && (
-                <ModalForCreateAndUpdate
+                <CustomerModal
                     open
                     onClose={closeModal}
                     formType={modalConfig.type === "create" ? "create" : "update"}
                     data={modalConfig.data}
+                    handleReload={handleReload}
                 />
             )}
         </>
