@@ -1,0 +1,66 @@
+{
+  "customers": [
+    {
+      "key": 1,
+      "full_name": "John Cena",
+      "birthday": "1990-01-01",
+      "phone": "0123456789",
+      "email": "QwR7H@example.com",
+      "judge": [
+        {
+          "value": "handsome",
+          "label": "Đẹp trai"
+        }
+      ],
+      "gender": "male",
+      "other_phone": "",
+      "other_email": "",
+      "status": "new",
+      "assign_to": {
+        "value": 123123123,
+        "label": "Đạt 09"
+      },
+      "company_name": "Company A",
+      "career": "transfer",
+      "department": "media",
+      "total_employee": "50",
+      "country": "vn",
+      "city": "hn",
+      "district": "dd",
+      "address": "123 ABC Street"
+    },
+    {
+      "key": 1,
+      "full_name": "David Beckham",
+      "birthday": "2000-01-01",
+      "phone": "0123123123",
+      "email": "fhkaF@example.com",
+      "judge": [
+        {
+          "value": "ugly",
+          "label": "Xấu zai"
+        },
+        {
+          "value": "idiot",
+          "label": "Đần"
+        }
+      ],
+      "gender": "female",
+      "other_phone": "",
+      "other_email": "",
+      "status": "contact",
+      "assign_to": {
+        "value": 351421419,
+        "label": "Cường Đzai 1102"
+      },
+      "company_name": "Company B",
+      "career": "construction",
+      "department": "tester",
+      "total_employee": "99",
+      "country": "uk",
+      "city": "hcm",
+      "district": "hm",
+      "address": "456 XYZ Street"
+    }
+  ]
+}
