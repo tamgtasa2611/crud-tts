@@ -109,8 +109,8 @@ export default function Crud() {
         },
         {
             title: "Đánh giá",
-            dataIndex: "jugde",
-            key: "jugde",
+            dataIndex: "judge",
+            key: "judge",
             render: (_, {judge}) => (
                 <>
                     {judge.map((item) => {

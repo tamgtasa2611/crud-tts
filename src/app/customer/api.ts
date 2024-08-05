@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {IDataType} from "@/app/customer/interface";
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:3000',
@@ -27,7 +26,7 @@ export const createCustomer = async (data: any) => {
     }
 };
 
-export const updateCustomer = async (id: string, data: any) => {
+export const updateCustomer = async (id: string | undefined, data: any) => {
     try {
         const response = await axiosInstance.put(`/customers/${id}`, data);
         return response.data;

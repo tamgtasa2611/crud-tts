@@ -18,6 +18,7 @@ import {IDataType} from "@/app/customer/interface";
 import styles from "./modal.module.scss";
 import {createCustomer, updateCustomer} from "@/app/customer/api";
 import {notification} from "antd/lib";
+import dayjs, {Dayjs} from "dayjs";
 
 type Props = {
     open: boolean;
@@ -29,7 +30,7 @@ type Props = {
 
 type FieldType = {
     full_name?: string;
-    birthday?: string;
+    birthday?: string | null;
     phone?: string;
     email?: string;
     judge?: [];
@@ -59,66 +60,59 @@ const validateMessages = {
 const CustomerModal = ({open, onClose, formType, data, handleReload}: Props) => {
     const [form] = Form.useForm();
 
+    const data2 = {
+        ...data,
+        birthday: dayjs(data?.birthday)
+    }
+
     const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
         console.log("Failed:", errorInfo);
     };
 
     const handleSubmit = () => {
         try {
-            form
-                .validateFields()
-                .then((values) => {
-                    const id = data?.id;
-
-                    const payload = {
-                        full_name: values.valueOf().full_name,
-                        birthday: values.valueOf().birthday || null,
-                        phone: values.valueOf().phone,
-                        email: values.valueOf().email,
-                        judge: values.valueOf().judge,
-                        gender: values.valueOf().gender || null,
-                        other_phone: values.valueOf().other_phone || null,
-                        other_email: values.valueOf().other_email || null,
-                        status: values.valueOf().status,
-                        assign_to: values.valueOf().assign_to,
-                        company_name: values.valueOf().company_name,
-                        career: values.valueOf().career || null,
-                        department: values.valueOf().department || null,
-                        total_employee: values.valueOf().total_employee || null,
-                        country: values.valueOf().country,
-                        city: values.valueOf().city,
-                        district: values.valueOf().district,
-                        address: values.valueOf().address,
-                    }
-                    form.resetFields();
-                    if (formType === "create") {
-                        createCustomer(payload).then(r => {
-                            handleReload();
-                            onClose();
-                            notification.success({
-                                message: "Thêm khách hàng thành công!"
-                            });
+            form.validateFields().then((value) => {
+                value.birthday = dayjs(value.birthday).format("YYYY-MM-DD");
+                const payload = {
+                    full_name: value.full_name,
+                    birthday: value.birthday || null,
+                    phone: value.phone,
+                    email: value.email,
+                    judge: value.judge,
+                    gender: value.gender || null,
+                    other_phone: value.other_phone || null,
+                    other_email: value.other_email || null,
+                    status: value.status,
+                    assign_to: value.assign_to,
+                    company_name: value.company_name,
+                    career: value.career || null,
+                    department: value.department || null,
+                    total_employee: value.total_employee || null,
+                    country: value.country,
+                    city: value.city,
+                    district: value.district,
+                    address: value.address,
+                }
+                form.resetFields();
+                if (formType === "create") {
+                    createCustomer(payload).then(r => {
+                        console.log(r)
+                        handleReload();
+                        onClose();
+                        notification.success({
+                            message: "Thêm khách hàng thành công!"
                         });
-                    } else {
-                        if (id) {
-                            updateCustomer(id, payload).then(r => {
-                                handleReload();
-                                onClose();
-                                notification.success({
-                                    message: "Cập nhật khách hàng thành công!"
-                                });
-                            });
-                        } else {
-                            notification.error({
-                                message: "Đã xảy ra lỗi không xác định"
-                            })
-                        }
-                    }
-
-                })
-                .catch((info) => {
-                    console.log("Validate Failed:", info);
-                });
+                    });
+                } else {
+                    updateCustomer(data?.id, payload).then(r => {
+                        handleReload();
+                        onClose();
+                        notification.success({
+                            message: "Cập nhật khách hàng thành công!"
+                        });
+                    });
+                }
+            })
         } catch (e) {
             console.log(e)
         }
@@ -137,15 +131,13 @@ const CustomerModal = ({open, onClose, formType, data, handleReload}: Props) => 
                 width={1000}
                 okButtonProps={{
                     htmlType: "submit",
-                    form: "create-update-form",
                     onClick: () => form.submit(),
                 }}
             >
                 <Form
-                    name="create-update-form"
-                    initialValues={data as IDataType}
-                    onFinish={handleSubmit}
+                    initialValues={data2}
                     form={form}
+                    onFinish={handleSubmit}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                     validateMessages={validateMessages}

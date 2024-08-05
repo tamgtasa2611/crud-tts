@@ -1,99 +1,75 @@
 {
   "customers": [
     {
-      "id": "7b6g5",
-      "full_name": "David Beckham",
-      "birthday": "2000-01-01",
-      "phone": "0123123123",
-      "email": "fhkaF@example.com",
-      "judge": [
-        "ugly",
-        "idiot"
-      ],
-      "gender": "female",
-      "other_phone": "",
-      "other_email": "",
-      "status": "contact",
-      "assign_to": "351421419",
-      "company_name": "Company B",
-      "career": "construction",
-      "department": "tester",
-      "total_employee": "99",
-      "country": "uk",
-      "city": "hcm",
-      "district": "hm",
-      "address": "456 XYZ Street"
-    },
-    {
-      "id": "7bz65",
-      "full_name": "John Cena",
-      "birthday": "1990-01-01",
-      "phone": "0123456789",
-      "email": "QwR7H@example.com",
+      "full_name": "Tammmmmm",
+      "birthday": "2024-08-14",
+      "phone": "t",
+      "email": "tammmmmmmmmm@gmail.com",
       "judge": [
         "handsome"
       ],
       "gender": "male",
-      "other_phone": "",
-      "other_email": "",
-      "status": "new",
-      "assign_to": "351421412",
-      "company_name": "Company A",
-      "career": "transfer",
-      "department": "media",
-      "total_employee": "50",
+      "other_phone": null,
+      "other_email": null,
+      "status": "contact",
+      "assign_to": "351421419",
+      "company_name": "t",
+      "career": null,
+      "department": null,
+      "total_employee": null,
       "country": "vn",
       "city": "hn",
-      "district": "dd",
-      "address": "123 ABC Street"
+      "district": "tx",
+      "address": "t",
+      "id": "6f76"
     },
     {
-      "full_name": "Exxxxxxx",
-      "birthday": null,
-      "phone": "E",
-      "email": "Exxxxxxxx@GMAIL.COM",
+      "full_name": "ffff",
+      "birthday": "2024-08-31",
+      "phone": "f",
+      "email": "fff@gmail.com",
       "judge": [
-        "handsome",
-        "ugly"
+        "ugly",
+        "idiot",
+        "handsome"
       ],
       "gender": null,
       "other_phone": null,
       "other_email": null,
-      "status": "new",
-      "assign_to": "351421412",
-      "company_name": "E",
+      "status": "contact",
+      "assign_to": "351421419",
+      "company_name": "f",
       "career": null,
       "department": null,
       "total_employee": null,
       "country": "vn",
       "city": "hcm",
       "district": "tx",
-      "address": "E",
-      "id": "461d"
+      "address": "ffffff",
+      "id": "afe0"
     },
     {
-      "full_name": "a",
-      "birthday": null,
-      "phone": "a",
-      "email": "a@gmail.com",
+      "full_name": "vvvvv",
+      "birthday": "2024-08-05",
+      "phone": "v",
+      "email": "v@gmail.com",
       "judge": [
-        "idiot",
-        "handsome"
+        "ugly"
       ],
       "gender": null,
-      "other_phone": "a",
+      "other_phone": null,
       "other_email": null,
       "status": "contact",
-      "assign_to": "351421419",
-      "company_name": "a",
+      "assign_to": "351421416",
+      "company_name": "v",
       "career": null,
       "department": null,
       "total_employee": null,
       "country": "us",
       "city": "hcm",
-      "district": "bd",
-      "address": "a",
-      "id": "f8c3"
+      "district": "hm",
+      "address": "v",
+      "id": "922a"
     }
   ]
 }
